@@ -14,10 +14,12 @@ module.exports = (env, argv) => {
     },
     devServer: {
       static: {
-        directory: path.join(__dirname, 'public'),
+        directory: path.join(__dirname, '../public'),
       },
       compress: true,
       port: 8080,
+      hot: true,
+      open: true,
       proxy: [
         {
           context: ['/api'], // requests starting with /api
@@ -47,6 +49,9 @@ module.exports = (env, argv) => {
           use: ['style-loader', 'css-loader'],
         },
       ],
+    },
+    resolve: {
+      extensions: ['.js', '.jsx'], // Resolve .jsx extensions
     },
   };
 };
