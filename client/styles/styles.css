@@ -1,0 +1,49 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+form {
+  border: 1px black solid;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+form div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.submit-btn {
+  width: 50%;
+  padding: 0.8rem;
+  align-self: center;
+  border-radius: 20px;
+}
+
+/* TICKET UI */
+
+
+/* Extra Small Devices (Phones, < 576px) */
+@media (max-width: 575.98px) {
+  form {
+    margin: 0 auto;
+    width: auto;
+    font-size: 1rem;
+  }
+}

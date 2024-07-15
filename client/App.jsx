@@ -1,11 +1,13 @@
 import React from 'react';
 import './styles/styles.css';
+import Form from './components/Form';
+
 
 const App = () => {
   return (
     <>
-      <div>motgreatwdrqwdqwder</div>
-      <div>fomjsasdE Vjrfcsedfm</div>
+
+      <Form />
     </>
   );
 };
