@@ -37,7 +37,36 @@ form div {
 }
 
 /* TICKET UI */
+.ticket-container {
+  border: 1px solid pink;
+  display: grid;
+  width: 90%;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
 
+.info {
+  display: flex;
+  gap: 5px;
+}
+
+.category {
+  font-weight: 500;
+}
+
+.ticket-id {
+  background-color: rgba(135, 206, 235, 0.5);
+  display: flex;
+  width: 80px;
+  justify-content: center;
+  border-radius: 20px;
+  padding: 0.25rem;
+  padding-left: 0.1rem;
+}
+
+.ticket-id .value {
+  align-self: center;
+}
 
 /* Extra Small Devices (Phones, < 576px) */
 @media (max-width: 575.98px) {
@@ -45,5 +74,50 @@ form div {
     margin: 0 auto;
     width: auto;
     font-size: 1rem;
+  }
+
+  .ticket-container {
+    margin: 0 auto;
+    width: 95%;
+    padding: 0.35rem;
+    font-size: 12px;
+    gap: 5px;
+  }
+
+  .ticket-id {
+    font-size: 12px;
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+  }
+
+  .ticket-name {
+    grid-column: 1 / 2;
+    grid-row: 3 / 4;
+  }
+
+  .ticket-email {
+    grid-column: 2 / 3;
+    grid-row: 3 / 4;
+    width: 140px;
+    overflow-x: hidden;
+  }
+
+  .ticket-created {
+    grid-column: 3 / 4;
+    grid-row: 3 /4;
+  }
+
+  .ticket-status {
+    grid-column: 3 / 4;
+    grid-row: 1 / 2;
+  }
+
+  .ticket-description {
+    grid-column: 1 / 4;
+    grid-row: 2 / 3;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    height: 30px;
+    overflow-y: hidden;
   }
 }

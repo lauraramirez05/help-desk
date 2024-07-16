@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
 import Form from './components/Form';
 import AdminPortal from './components/AdminPortal';
+import Ticket from './components/Ticket';
 
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
@@ -23,7 +24,8 @@ const router = createBrowserRouter([
 
 root.render(
   <StrictMode>
-    <RouterProvider router={router} />
+    {/* <RouterProvider router={router} /> */}
     {/* <App /> */}
+    <AdminPortal />
   </StrictMode>
 );
