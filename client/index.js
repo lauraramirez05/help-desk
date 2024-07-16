@@ -6,6 +6,7 @@ import App from './App';
 import Form from './components/Form';
 import AdminPortal from './components/AdminPortal';
 import Ticket from './components/Ticket';
+import FilterModal from './components/FilterModal';
 
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
@@ -27,5 +28,6 @@ root.render(
     {/* <RouterProvider router={router} /> */}
     {/* <App /> */}
     <AdminPortal />
+    {/* <FilterModal /> */}
   </StrictMode>
 );

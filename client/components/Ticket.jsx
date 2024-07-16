@@ -8,35 +8,17 @@ import {
 } from '@fortawesome/free-regular-svg-icons'; // Import specific icons
 import { formatDateTime } from '../utils/dateUtils';
 
-const Ticket = (info) => {
-  const { _id, name, email, description, createdAt, status } = info.info;
+const Ticket = ({ info, onUpdateStatus }) => {
+  const { _id, name, email, description, createdAt, status } = info;
   const [currenStatus, setCurrentStatus] = useState(status);
 
   const formattedDate = formatDateTime(createdAt);
 
   const handleChange = async (e) => {
     const newStatus = e.target.value;
-
-    try {
-      const response = await fetch(`/api/update-status/${_id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ status: newStatus }),
-      });
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const updatedTicket = await response.json();
-      console.log(updatedTicket);
-      setCurrentStatus(updatedTicket.status);
-    } catch (error) {
-      console.error('Error updating ticket:', error);
-    }
+    setCurrentStatus(newStatus);
+    await onUpdateStatus(_id, newStatus);
   };
-
-  console.log(currenStatus);
 
   return (
     <Paper elevation={3} className='ticket-container'>
@@ -73,7 +55,7 @@ const Ticket = (info) => {
           value={currenStatus}
         >
           <option value='New'>New</option>
-          <option value='In progress'>In Progress</option>
+          <option value='In Progress'>In Progress</option>
           <option value='Done'>Done</option>
         </select>
         {/* <FormControl fullWidth variant='outlined'>
