@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Ticket from './Ticket';
 import SearchTicket from './SearchTicket';
@@ -6,27 +6,49 @@ import { Button } from '@mui/material';
 import FilterModal from './FilterModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse } from '@fortawesome/free-solid-svg-icons';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 const AdminPortal = () => {
-  const limit = 5;
-
   const [tickets, setTickets] = useState([]);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
   const [openModal, setOpenModal] = useState(false);
-  const [filteredTickets, setFilteredTickets] = useState([]);
+  const [messageSubmitted, setMessageSubmitted] = useState(false);
+  const initialLoadRef = useRef(true);
 
+  console.log('TICKETS', tickets);
   //Fetch Tickets
-  const fetchTickets = async () => {
+  const fetchTickets = async (page) => {
+    console.log('fetching tickets');
     try {
-      const response = await fetch(`/api/get-tickets`);
+      const response = await fetch(`/api/get-tickets?page=${page}&limit=${7}`);
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
-      setTickets(data);
+      const { tickets: newTickets, totalPages } = data;
+
+      // Filter out duplicate tickets based on their _id before updating state
+      const filteredNewTickets = newTickets.filter((newTicket) => {
+        return !tickets.some((ticket) => ticket._id === newTicket._id);
+      });
+
+      setTickets((prevTickets) => [...prevTickets, ...filteredNewTickets]);
+
+      if (page >= totalPages) {
+        setHasMore(false);
+      }
     } catch (error) {
       console.error('Error fetching tickets:', error);
       // Handle error state or throw it further
     }
+  };
+
+  const fetchMoreTickets = () => {
+    console.log('fetching more tickets');
+    const nextPage = page + 1;
+    fetchTickets(nextPage);
+    setPage(nextPage);
   };
 
   //Fetch request to update status
@@ -117,8 +139,12 @@ const AdminPortal = () => {
       });
       if (!response.ok) {
         throw new Error('Network response was not ok');
+      } else {
+        console.log('inside else because we got ok response');
+        setMessageSubmitted(true);
       }
-      const updatedTicket = await response.json();
+      // const updatedTicket = await response.json();
+      // console.log('updated ticket with mesage', updatedTicket);
     } catch (error) {
       console.error('Error updating the messages', error);
     }
@@ -130,16 +156,17 @@ const AdminPortal = () => {
   };
 
   useEffect(() => {
-    fetchTickets();
+    if (initialLoadRef.current) {
+      fetchTickets(1); // Fetch only if tickets are not yet fetched
+      initialLoadRef.current = false; // Update initialLoadRef after initial fetch
+    }
   }, []);
 
   return (
     <div className='admin-page'>
       <div className='header'>
         <Button className='house-btn'>
-          {/* <Link to='/'> */}
           <FontAwesomeIcon icon={faHouse} />
-          {/* </Link> */}
         </Button>
         <div className='filter-container'>
           <SearchTicket onSearch={searchTicket} />
@@ -152,20 +179,31 @@ const AdminPortal = () => {
         onClose={setOpenModal}
         onFilter={filterTickets}
       />
-      {/* <TicketFeed
-        tickets={tickets}
-        onUpdateStatus={updateTicketStatus}
-        onUpdateMessages={updateMessages}
-      /> */}
       <div className='ticket-feed'>
-        {tickets.map((ticket) => (
-          <Ticket
-            key={ticket._id}
-            info={ticket}
-            onUpdateStatus={updateTicketStatus}
-            onUpdateMessages={updateMessages}
-          />
-        ))}
+        <InfiniteScroll
+          className='scrollable-section'
+          dataLength={tickets.length}
+          next={fetchMoreTickets}
+          hasMore={hasMore}
+          loader={<h4>Loading...</h4>}
+          endMessage={<p>All tickets have been loaded</p>}
+          // scrollableTarget='ticket-feed'
+        >
+          {tickets.map((ticket) => (
+            <Ticket
+              key={ticket._id}
+              info={ticket}
+              onUpdateStatus={updateTicketStatus}
+              onUpdateMessages={updateMessages}
+              messageSubmitted={messageSubmitted}
+              setMessageSubmitted={setMessageSubmitted}
+            />
+          ))}
+
+          <Button className='load-btn' onClick={fetchMoreTickets}>
+            Load More
+          </Button>
+        </InfiniteScroll>
       </div>
     </div>
   );

@@ -8,19 +8,22 @@ import {
   faPaperPlane,
   faComment,
 } from '@fortawesome/free-regular-svg-icons';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faXmark, faReply } from '@fortawesome/free-solid-svg-icons';
+import Alert from '@mui/material/Alert';
 
 const TicketModal = ({
   open,
   onClose,
   info,
   onUpdateMessages,
-  handleChange,
+  postStatus,
   currentStatus,
   setCurrentStatus,
+  messageSubmitted,
+  setMessageSubmitted,
 }) => {
   const { _id, name, email, description, createdAt, status, messages } = info;
-  const [newMessage, setNewMessage] = useState('');
+  const [newMessage, setNewMessage] = useState(null);
 
   const modalStyle = {
     display: 'flex',
@@ -55,10 +58,15 @@ const TicketModal = ({
   };
 
   const handleClick = () => {
-    onUpdateMessages(_id, currentStatus);
+    postStatus(_id, currentStatus);
     onUpdateMessages(_id, newMessage);
-    onClose(false);
+    // setNewMessage('');
   };
+  console.log(messageSubmitted);
+  setTimeout(() => {
+    setMessageSubmitted(false);
+    setNewMessage('');
+  }, 15000);
 
   return (
     <Modal open={open} close={onClose}>
@@ -74,23 +82,11 @@ const TicketModal = ({
             </div>
           </div>
           <div className='ticket-info'>
-            <div>
+            <div className='ticket-email'>
               <FontAwesomeIcon icon={faEnvelope} />
               <span className='email'>{email}</span>
             </div>
-            {/* <div className='status-container'>
-              <span
-                className={`status ${
-                  status === 'New'
-                    ? 'new-status'
-                    : status === 'In Progress'
-                    ? 'in-progress-status'
-                    : 'done-status'
-                }`}
-              >
-                {status}
-              </span>
-            </div> */}
+
             <div className='info ticket-status'>
               <select
                 name='status-select-label'
@@ -117,22 +113,31 @@ const TicketModal = ({
               </Paper>
             </div>
           </div>
-          <div className='messages-container'>
+          {/* <div className='messages-container'>
             {messages.map((message) => (
-              <div className='message'>{message}</div>
+              <div>
+                {message}
+                <FontAwesomeIcon icon={faReply} />
+              </div>
             ))}
-          </div>
+          </div> */}
           <Paper elevation={3} className='chat-container'>
             <label htmlFor='reply'>Send Message</label>
             <textarea
               id='reply'
               rows='4'
               placeholder='Type your response here...'
+              value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
             ></textarea>
             <button className='submit-btn' type='submit' onClick={handleClick}>
               <FontAwesomeIcon icon={faPaperPlane} />
             </button>
+            {messageSubmitted && (
+              <Alert severity='success'>
+                `Would normally send email here with body: {newMessage}`
+              </Alert>
+            )}
           </Paper>
         </Box>
       </Box>

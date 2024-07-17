@@ -9,7 +9,7 @@ import { formatDateTime } from '../utils/dateUtils';
 import TicketModal from './TicketModal';
 import { Paper } from '@mui/material';
 
-const Ticket = ({ info, onUpdateStatus, onUpdateMessages }) => {
+const Ticket = ({ info, onUpdateStatus, onUpdateMessages, messageSubmitted, setMessageSubmitted }) => {
   const { _id, name, email, description, createdAt, status } = info;
   const [currentStatus, setCurrentStatus] = useState(status);
   const [openModal, setOpenModal] = useState(false);
@@ -18,8 +18,12 @@ const Ticket = ({ info, onUpdateStatus, onUpdateMessages }) => {
 
   const handleChange = async (e) => {
     const newStatus = e.target.value;
-    setCurrentStatus(newStatus);
-    await onUpdateStatus(_id, newStatus);
+    postStatus(_id, newStatus);
+  };
+
+  const postStatus = async (id, updatedStatus) => {
+    setCurrentStatus(updatedStatus);
+    await onUpdateStatus(_id, updatedStatus);
   };
 
   const handleClick = (e) => {
@@ -95,9 +99,11 @@ const Ticket = ({ info, onUpdateStatus, onUpdateMessages }) => {
         onClose={handleCloseModal}
         info={info}
         onUpdateMessages={onUpdateMessages}
-        handleChange={handleChange}
+        postStatus={postStatus}
         currentStatus={currentStatus}
         setCurrentStatus={setCurrentStatus}
+        messageSubmitted={messageSubmitted}
+        setMessageSubmitted={setMessageSubmitted}
       />
     </div>
   );
