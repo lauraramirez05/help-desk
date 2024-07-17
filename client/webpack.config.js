@@ -14,7 +14,7 @@ module.exports = (env, argv) => {
     },
     devServer: {
       static: {
-        directory: path.join(__dirname, '../public'),
+        directory: path.join(__dirname, './public'),
       },
       compress: true,
       port: 8080,
@@ -29,7 +29,7 @@ module.exports = (env, argv) => {
     },
     plugins: [
       new HtmlWebpackPlugin({
-        template: '../public/index.html',
+        template: './public/index.html',
       }),
     ],
     module: {
