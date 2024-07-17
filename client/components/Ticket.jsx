@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Chip, FormControl, Select, MenuItem, Paper } from '@mui/material';
 import {
   faUser,
   faEnvelope,
@@ -8,10 +7,11 @@ import {
 } from '@fortawesome/free-regular-svg-icons'; // Import specific icons
 import { formatDateTime } from '../utils/dateUtils';
 import TicketModal from './TicketModal';
+import { Paper } from '@mui/material';
 
 const Ticket = ({ info, onUpdateStatus, onUpdateMessages }) => {
   const { _id, name, email, description, createdAt, status } = info;
-  const [currenStatus, setCurrentStatus] = useState(status);
+  const [currentStatus, setCurrentStatus] = useState(status);
   const [openModal, setOpenModal] = useState(false);
 
   const formattedDate = formatDateTime(createdAt);
@@ -22,7 +22,16 @@ const Ticket = ({ info, onUpdateStatus, onUpdateMessages }) => {
     await onUpdateStatus(_id, newStatus);
   };
 
-  const handleClick = () => {
+  const handleClick = (e) => {
+    // Check if the clicked element is the select element or its child
+    if (
+      e.target.id === 'status-select' ||
+      e.target.parentElement.id === 'status-select'
+    ) {
+      return; // Do nothing if clicking on the select or its options
+    }
+
+    // Open the modal for other parts of the ticket container
     setOpenModal(true);
   };
 
@@ -40,16 +49,19 @@ const Ticket = ({ info, onUpdateStatus, onUpdateMessages }) => {
           <div className='category'>
             <FontAwesomeIcon icon={faUser} />
           </div>
-          <div className='value'>{name}</div>
+          <a href={`mailto:${email}`} className='value'>
+            {name}
+          </a>
         </div>
         <div className='info ticket-email'>
           <div className='category'>
             <FontAwesomeIcon icon={faEnvelope} />
           </div>
-          <div className='value'>{email}</div>
+          <a href={`mailto:${email}`} className='value'>
+            {email}
+          </a>
         </div>
         <div className='info ticket-description'>
-          {/* <div className='category'>Description:</div> */}
           <div className='value'>{description}</div>
         </div>
         <div className='info ticket-created'>
@@ -63,26 +75,19 @@ const Ticket = ({ info, onUpdateStatus, onUpdateMessages }) => {
             name='status-select-label'
             id='status-select'
             onChange={handleChange}
-            value={currenStatus}
+            value={currentStatus}
+            className={`${
+              currentStatus === 'New'
+                ? 'new-status'
+                : currentStatus === 'In Progress'
+                ? 'in-progress-status'
+                : 'done-status'
+            }`}
           >
             <option value='New'>New</option>
             <option value='In Progress'>In Progress</option>
             <option value='Done'>Done</option>
           </select>
-          {/* <FormControl fullWidth variant='outlined'>
-          <Select
-            labelId='status-select-label'
-            id='status-select'
-            // value={status}
-            // onChange={handleChange}
-            label='Status'
-          >
-            <MenuItem value='new'>New</MenuItem>
-            <MenuItem value='in-progress'>In Progress</MenuItem>
-            <MenuItem value='done'>Done</MenuItem>
-          </Select>
-        </FormControl> */}
-          {/* <div className='value'>status</div> */}
         </div>
       </Paper>
       <TicketModal
@@ -90,6 +95,9 @@ const Ticket = ({ info, onUpdateStatus, onUpdateMessages }) => {
         onClose={handleCloseModal}
         info={info}
         onUpdateMessages={onUpdateMessages}
+        handleChange={handleChange}
+        currentStatus={currentStatus}
+        setCurrentStatus={setCurrentStatus}
       />
     </div>
   );

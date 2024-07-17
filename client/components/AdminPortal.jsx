@@ -4,7 +4,6 @@ import Ticket from './Ticket';
 import SearchTicket from './SearchTicket';
 import { Button } from '@mui/material';
 import FilterModal from './FilterModal';
-import { updateMessages } from '../../server/controller/TicketController';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse } from '@fortawesome/free-solid-svg-icons';
 
@@ -136,14 +135,16 @@ const AdminPortal = () => {
 
   return (
     <div className='admin-page'>
-      <Button className='house-btn'>
-        {/* <Link to='/'> */}
-        <FontAwesomeIcon icon={faHouse} />
-        {/* </Link> */}
-      </Button>
       <div className='header'>
-        <SearchTicket onSearch={searchTicket} />
-        <Button onClick={handleClick}>Filter</Button>
+        <Button className='house-btn'>
+          {/* <Link to='/'> */}
+          <FontAwesomeIcon icon={faHouse} />
+          {/* </Link> */}
+        </Button>
+        <div className='filter-container'>
+          <SearchTicket onSearch={searchTicket} />
+          <Button onClick={handleClick}>Filter</Button>
+        </div>
       </div>
 
       <FilterModal
@@ -151,6 +152,11 @@ const AdminPortal = () => {
         onClose={setOpenModal}
         onFilter={filterTickets}
       />
+      {/* <TicketFeed
+        tickets={tickets}
+        onUpdateStatus={updateTicketStatus}
+        onUpdateMessages={updateMessages}
+      /> */}
       <div className='ticket-feed'>
         {tickets.map((ticket) => (
           <Ticket

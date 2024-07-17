@@ -10,7 +10,15 @@ import {
 } from '@fortawesome/free-regular-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
-const TicketModal = ({ open, onClose, info, onUpdateMessages }) => {
+const TicketModal = ({
+  open,
+  onClose,
+  info,
+  onUpdateMessages,
+  handleChange,
+  currentStatus,
+  setCurrentStatus,
+}) => {
   const { _id, name, email, description, createdAt, status, messages } = info;
   const [newMessage, setNewMessage] = useState('');
 
@@ -36,7 +44,18 @@ const TicketModal = ({ open, onClose, info, onUpdateMessages }) => {
     border: 'none',
   };
 
+  const handleClose = () => {
+    setCurrentStatus(status);
+    onClose(false);
+  };
+
+  const handleStatus = (e) => {
+    const newStatus = e.target.value;
+    setCurrentStatus(newStatus);
+  };
+
   const handleClick = () => {
+    onUpdateMessages(_id, currentStatus);
     onUpdateMessages(_id, newMessage);
     onClose(false);
   };
@@ -50,7 +69,7 @@ const TicketModal = ({ open, onClose, info, onUpdateMessages }) => {
               <FontAwesomeIcon icon={faMessage} />
               <span className='user'>{name}</span>
             </div>
-            <div onClick={onClose}>
+            <div onClick={handleClose}>
               <FontAwesomeIcon icon={faXmark} />
             </div>
           </div>
@@ -59,7 +78,7 @@ const TicketModal = ({ open, onClose, info, onUpdateMessages }) => {
               <FontAwesomeIcon icon={faEnvelope} />
               <span className='email'>{email}</span>
             </div>
-            <div className='status-container'>
+            {/* <div className='status-container'>
               <span
                 className={`status ${
                   status === 'New'
@@ -71,6 +90,25 @@ const TicketModal = ({ open, onClose, info, onUpdateMessages }) => {
               >
                 {status}
               </span>
+            </div> */}
+            <div className='info ticket-status'>
+              <select
+                name='status-select-label'
+                id='status-select'
+                onChange={handleStatus}
+                value={currentStatus}
+                className={`${
+                  currentStatus === 'New'
+                    ? 'new-status'
+                    : currentStatus === 'In Progress'
+                    ? 'in-progress-status'
+                    : 'done-status'
+                }`}
+              >
+                <option value='New'>New</option>
+                <option value='In Progress'>In Progress</option>
+                <option value='Done'>Done</option>
+              </select>
             </div>
             <div className='description-container'>
               <Paper className='modal-description'>
