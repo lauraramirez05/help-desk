@@ -4,6 +4,8 @@ import Alert from '@mui/material/Alert';
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import AdminPortal from './AdminPortal';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 const Form = () => {
   const [formData, setFormData] = useState({
@@ -66,33 +68,39 @@ const Form = () => {
 
   return (
     <div className='main-page'>
-      <Button variant='outlined'>
-        <Link to='/admin'>Admin</Link>
-      </Button>
+      <div className='header'>
+        <h1 className='heading'>Contact Us</h1>
+        <Link to='/admin'>
+          <FontAwesomeIcon icon={faUser} />
+        </Link>
+      </div>
 
+      {/* <div className='form-container'> */}
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor='name'>Name:</label>
+          {/* <label htmlFor='name'>Name:</label> */}
           <input
             type='text'
             id='name'
             value={formData.name}
             onChange={handleChange}
             required
+            placeholder='Name'
           />
         </div>
         <div>
-          <label htmlFor='email'>Email:</label>
+          {/* <label htmlFor='email'>Email:</label> */}
           <input
             type='email'
             id='email'
             value={formData.email}
             onChange={handleChange}
             required
+            placeholder='Email'
           />
         </div>
         <div>
-          <label htmlFor='description'>Description:</label>
+          {/* <label htmlFor='description'>Description:</label> */}
           <textarea
             id='description'
             name='message'
@@ -119,6 +127,7 @@ const Form = () => {
           later
         </Alert>
       )}
+      {/* </div> */}
     </div>
   );
 };

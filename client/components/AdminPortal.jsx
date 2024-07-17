@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Ticket from './Ticket';
 import SearchTicket from './SearchTicket';
 import { Button } from '@mui/material';
 import FilterModal from './FilterModal';
 import { updateMessages } from '../../server/controller/TicketController';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHouse } from '@fortawesome/free-solid-svg-icons';
 
 const AdminPortal = () => {
   const limit = 5;
@@ -132,9 +135,17 @@ const AdminPortal = () => {
   }, []);
 
   return (
-    <div>
-      <SearchTicket onSearch={searchTicket} />
-      <Button onClick={handleClick}>Filter</Button>
+    <div className='admin-page'>
+      <Button className='house-btn'>
+        {/* <Link to='/'> */}
+        <FontAwesomeIcon icon={faHouse} />
+        {/* </Link> */}
+      </Button>
+      <div className='header'>
+        <SearchTicket onSearch={searchTicket} />
+        <Button onClick={handleClick}>Filter</Button>
+      </div>
+
       <FilterModal
         open={openModal}
         onClose={setOpenModal}

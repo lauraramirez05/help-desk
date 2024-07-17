@@ -28,8 +28,8 @@ root.render(
   <StrictMode>
     {/* <RouterProvider router={router} /> */}
     {/* <App /> */}
-    <AdminPortal />
-    {/* <FilterModal /> */}
+    {/* <AdminPortal /> */}
+    <FilterModal />
     {/* <TicketModal /> */}
   </StrictMode>
 );
