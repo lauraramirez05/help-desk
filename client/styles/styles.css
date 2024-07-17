@@ -27,7 +27,8 @@ body {
   box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 30px 30px -20px;
 }
 
-.header {
+.header,
+.modal-header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -173,7 +174,53 @@ form div {
 }
 
 /* FILTER MODAL */
+.modal-title {
+  color: rgb(16, 137, 211);
+}
 
+.close-btn {
+  align-self: center;
+}
+
+.title {
+  display: flex;
+  gap: 20px;
+}
+
+.horizontal {
+  width: 80%;
+  align-self: center;
+  height: 0;
+  border-bottom: 0.5px #12b1d1 solid;
+}
+
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.date-option {
+  display: flex;
+  flex-direction: column;
+}
+
+/* TICKET MODAL */
+
+.right-header {
+  display: flex;
+  gap: 10px;
+}
+
+.ticket-modal {
+  height: 30px;
+}
+
+.ticket-info div {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+}
 
 /* Extra Small Devices (Phones, < 576px) */
 @media (max-width: 575.98px) {
@@ -185,6 +232,10 @@ form div {
 
   .header {
     width: 80%;
+  }
+
+  .modal-header {
+    width: 100%;
   }
 
   form {
@@ -205,6 +256,11 @@ form div {
   .search-container input {
     height: 35px;
     font-size: 1rem;
+  }
+
+  .horizontal {
+    width: 60%;
+    color: #12b1d1;
   }
 
   .ticket-container {

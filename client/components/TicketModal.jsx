@@ -6,6 +6,7 @@ import {
   faEnvelope,
   faLightbulb,
 } from '@fortawesome/free-regular-svg-icons';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 const TicketModal = ({ open, onClose, info, onUpdateMessages }) => {
   const { _id, name, email, description, createdAt, status, messages } = info;
@@ -23,13 +24,14 @@ const TicketModal = ({ open, onClose, info, onUpdateMessages }) => {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    pt: 2,
-    px: 4,
-    pb: 3,
+    width: '80%',
+    borderRadius: '10px',
+    backgroundColor: 'white', // Replace with your desired background color
+    color: '#333333',
+    padding: '15px',
+    margin: '20px auto',
+    boxShadow: '0px 20px 10px -15px rgba(133, 189, 215, 0.8784313725)',
+    border: 'none',
   };
 
   const handleClick = () => {
@@ -41,12 +43,14 @@ const TicketModal = ({ open, onClose, info, onUpdateMessages }) => {
     <Modal open={open} close={onClose}>
       <Box sx={modalStyle}>
         <Box sx={contentStyle}>
-          <div className='header'>
+          <div className='ticket-modal modal-header'>
             <div className='right-header'>
               <FontAwesomeIcon icon={faMessage} />
               <span className='user'>{name}</span>
             </div>
-            <button onClick={onClose}>x</button>
+            <div onClick={onClose}>
+              <FontAwesomeIcon icon={faXmark} />
+            </div>
           </div>
           <div className='ticket-info'>
             <div>

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Modal, Box } from '@mui/material';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 const FilterModal = ({ open, onClose, onFilter }) => {
-  const [open, setOpen] = useState(true);
+  // const [open, setOpen] = useState(true);
   const [statusFilters, setStatusFilters] = useState({
     new: false,
     inProgress: false,
@@ -24,10 +26,10 @@ const FilterModal = ({ open, onClose, onFilter }) => {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '70%',
+    width: '80%',
     borderRadius: '10px',
     backgroundColor: 'white', // Replace with your desired background color
-    color: 'darkgrey',
+    color: '#333333',
     padding: '15px',
     margin: '20px auto',
     boxShadow: '0px 20px 10px -15px rgba(133, 189, 215, 0.8784313725)',
@@ -55,13 +57,26 @@ const FilterModal = ({ open, onClose, onFilter }) => {
     setEndDate('');
   };
 
+  const handleClose = () => {
+    onClose(false);
+  };
+
   return (
     <Modal open={open}>
       <Box sx={modalStyle}>
         <Box sx={contentStyle}>
-          <h2>Filter Tickets</h2>
+          <div className='modal-header'>
+            <h2 className='modal-title'>Filter Tickets</h2>
+            <div onClick={handleClose} className='close-btn'>
+              <FontAwesomeIcon icon={faXmark} />
+            </div>
+          </div>
+
           <div className='status'>
-            <h4>By Status</h4>
+            <div className='title'>
+              <h4>By Status</h4>
+              <div className='horizontal'></div>
+            </div>
             <div className='options'>
               <div>
                 <input
@@ -112,7 +127,11 @@ const FilterModal = ({ open, onClose, onFilter }) => {
           </div>
 
           <div className='order'>
-            <h4>Order By</h4>
+            <div className='title'>
+              <h4>Order By</h4>
+              <div className='horizontal'></div>
+            </div>
+
             <div className='options'>
               <div>
                 <input
@@ -140,8 +159,12 @@ const FilterModal = ({ open, onClose, onFilter }) => {
           </div>
 
           <div className='date'>
-            <h4>By Range</h4>
-            <div>
+            <div className='title'>
+              <h4>By Range</h4>
+              <div className='horizontal'></div>
+            </div>
+
+            <div className='date-option'>
               <label htmlFor='startDate'>Start Date:</label>
               <input
                 type='date'
@@ -150,7 +173,7 @@ const FilterModal = ({ open, onClose, onFilter }) => {
                 onChange={(e) => setStartDate(e.target.value)}
               />
             </div>
-            <div>
+            <div className='date-option'>
               <label htmlFor='endDate'>End Date:</label>
               <input
                 type='date'
@@ -160,7 +183,9 @@ const FilterModal = ({ open, onClose, onFilter }) => {
               />
             </div>
           </div>
-          <button onClick={handleSubmit}>submit</button>
+          <button onClick={handleSubmit} className='submit-btn'>
+            submit
+          </button>
         </Box>
       </Box>
     </Modal>
