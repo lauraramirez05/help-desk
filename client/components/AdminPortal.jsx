@@ -3,6 +3,7 @@ import Ticket from './Ticket';
 import SearchTicket from './SearchTicket';
 import { Button } from '@mui/material';
 import FilterModal from './FilterModal';
+import { updateMessages } from '../../server/controller/TicketController';
 
 const AdminPortal = () => {
   const limit = 5;
@@ -52,6 +53,7 @@ const AdminPortal = () => {
     }
   };
 
+  //Fetch Search Ticket
   const searchTicket = async (query) => {
     if (query) {
       //Look in the current list
@@ -74,7 +76,8 @@ const AdminPortal = () => {
     }
   };
 
-  const FilterTickets = async (filters) => {
+  //Fetch to Filter Ticket
+  const filterTickets = async (filters) => {
     const baseURL = '/api/filter-tickets';
 
     const queryParams = new URLSearchParams({
@@ -97,6 +100,28 @@ const AdminPortal = () => {
       console.error('Error filtering the tickets:', error);
     }
   };
+
+  //Fetch to Update Messages
+  const updateMessages = async (id, newMessage) => {
+    console.log('Inside the fetch call to update message');
+
+    try {
+      const response = await fetch(`/api/update-messages/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({ messages: newMessage }),
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const updatedTicket = await response.json();
+    } catch (error) {
+      console.error('Error updating the messages', error);
+    }
+  };
+
   console.log(tickets);
   const handleClick = () => {
     setOpenModal(true);
@@ -113,7 +138,7 @@ const AdminPortal = () => {
       <FilterModal
         open={openModal}
         onClose={setOpenModal}
-        onFilter={FilterTickets}
+        onFilter={filterTickets}
       />
       <div className='ticket-feed'>
         {tickets.map((ticket) => (
@@ -121,6 +146,7 @@ const AdminPortal = () => {
             key={ticket._id}
             info={ticket}
             onUpdateStatus={updateTicketStatus}
+            onUpdateMessages={updateMessages}
           />
         ))}
       </div>
