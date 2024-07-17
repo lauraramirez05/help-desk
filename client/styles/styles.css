@@ -84,7 +84,8 @@ form textarea::placeholder {
 }
 
 form input:focus,
-form textarea:focus {
+form textarea:focus,
+.chat-container textarea:focus {
   outline: none;
   border-left: 2px solid #12b1d1;
   border-right: 2px solid #12b1d1;
@@ -213,13 +214,118 @@ form div {
 }
 
 .ticket-modal {
-  height: 30px;
+  height: 20px;
+  border-bottom: 1px solid #12b1d1;
+  margin-bottom: 20px;
 }
 
 .ticket-info div {
   display: flex;
   justify-content: flex-start;
   gap: 10px;
+  margin-bottom: 10px;
+}
+.message-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  height: 200px;
+  overflow: scroll;
+  margin: 20px 0;
+}
+.message {
+  background-color: #ffff;
+  border: none;
+  padding: 1rem;
+  font-size: 1rem;
+  width: 13em;
+  border-radius: 1rem;
+  box-shadow: 0 0.2rem rgba(133, 189, 215, 0.8784313725);
+  cursor: pointer;
+}
+
+.chat-container {
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  border: 2px solid #f1f5f9;
+}
+
+.chat-container label {
+  color: #6666;
+  font-weight: 500;
+  font-size: 1.3rem;
+}
+
+.chat-container textarea {
+  background-color: #f1f5f9; /* bg-slate-100 */
+  color: #475569; /* text-slate-600 */
+  height: 7rem; /* h-28 */
+  border: 1px solid #e2e8f0; /* border border-slate-200 */
+  grid-column: span 6; /* col-span-6 */
+  resize: none; /* resize-none */
+  outline: none; /* outline-none */
+  border-radius: 0.5rem; /* rounded-lg */
+  padding: 0.5rem; /* p-2 */
+  transition-duration: 300ms; /* duration-300 */
+}
+
+.chat-container textarea::placeholder {
+  color: #475569;
+  opacity: 0.5;
+}
+
+.chat-container button {
+  width: 50%;
+  margin: 10px auto;
+}
+
+.status {
+  padding: 0.2rem 0.5rem;
+  border-radius: 20px;
+  font-weight: 700;
+}
+
+.done-status {
+  background-color: rgb(219, 242, 226);
+  color: rgba(56, 108, 80);
+  -webkit-box-shadow: 3px 2px 8px -1px rgba(56, 108, 80);
+  -moz-box-shadow: 3px 2px 8px -1px rgba(56, 108, 80);
+  box-shadow: 3px 2px 8px -1px rgba(56, 108, 80);
+}
+
+.new-status {
+  background-color: rgb(220, 237, 255); /* very light blue */
+  color: rgba(25, 118, 210); /* medium blue */
+  -webkit-box-shadow: 3px 2px 8px -1px rgba(25, 118, 210, 0.5); /* medium blue with transparency */
+  -moz-box-shadow: 3px 2px 8px -1px rgba(25, 118, 210, 0.5); /* medium blue with transparency */
+  box-shadow: 3px 2px 8px -1px rgba(25, 118, 210, 0.5); /* medium blue with transparency */
+}
+
+.in-progress-status {
+  background-color: rgb(255, 243, 224); /* light orange */
+  color: rgba(239, 108, 0); /* deep orange */
+  -webkit-box-shadow: 3px 2px 8px -1px rgba(239, 108, 0);
+  -moz-box-shadow: 3px 2px 8px -1px rgba(239, 108, 0);
+  box-shadow: 3px 2px 8px -1px rgba(239, 108, 0);
+}
+
+.description-container {
+  width: 90%;
+  margin-top: 20px;
+}
+
+.modal-description {
+  border: 1px solid black;
+  border-radius: 40px;
+  padding: 0.7rem;
+  border: 2px solid #f1f5f9;
+  width: auto;
+  margin: 0 auto;
 }
 
 /* Extra Small Devices (Phones, < 576px) */
@@ -236,6 +342,14 @@ form div {
 
   .modal-header {
     width: 100%;
+  }
+
+  .messages-container {
+    display: none;
+  }
+
+  .chat-container textarea {
+    width: 90%;
   }
 
   form {

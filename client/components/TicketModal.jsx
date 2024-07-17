@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Modal, Box, Backdrop } from '@mui/material';
+import { Modal, Box, Backdrop, Paper } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faMessage,
   faEnvelope,
   faLightbulb,
+  faPaperPlane,
+  faComment,
 } from '@fortawesome/free-regular-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
@@ -57,31 +59,43 @@ const TicketModal = ({ open, onClose, info, onUpdateMessages }) => {
               <FontAwesomeIcon icon={faEnvelope} />
               <span className='email'>{email}</span>
             </div>
-            <div>
-              <FontAwesomeIcon icon={faLightbulb} />
-              <span className='status'>{status}</span>
+            <div className='status-container'>
+              <span
+                className={`status ${
+                  status === 'New'
+                    ? 'new-status'
+                    : status === 'In Progress'
+                    ? 'in-progress-status'
+                    : 'done-status'
+                }`}
+              >
+                {status}
+              </span>
             </div>
-            <div>
-              <span>{description}</span>
+            <div className='description-container'>
+              <Paper className='modal-description'>
+                <FontAwesomeIcon icon={faComment} />
+                {description}
+              </Paper>
             </div>
           </div>
           <div className='messages-container'>
             {messages.map((message) => (
-              <div>{message}</div>
+              <div className='message'>{message}</div>
             ))}
           </div>
-          <div className='chat-container'>
-            <label htmlFor='reply'>Your Message</label>
+          <Paper elevation={3} className='chat-container'>
+            <label htmlFor='reply'>Send Message</label>
             <textarea
               id='reply'
               rows='4'
               placeholder='Type your response here...'
               onChange={(e) => setNewMessage(e.target.value)}
             ></textarea>
-            <button type='submit' onClick={handleClick}>
-              Send
+            <button className='submit-btn' type='submit' onClick={handleClick}>
+              <FontAwesomeIcon icon={faPaperPlane} />
             </button>
-          </div>
+          </Paper>
         </Box>
       </Box>
     </Modal>
