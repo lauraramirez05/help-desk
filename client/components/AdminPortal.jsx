@@ -97,7 +97,7 @@ const AdminPortal = () => {
       console.log('inside of query');
       //Look in the current list
       const results = tickets.filter((ticket) => ticket._id.includes(query));
-      setTickets(results);
+      setTickets([results]);
       //Fetch to the server
       if (results.length === 0) {
         try {
