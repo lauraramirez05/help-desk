@@ -34,6 +34,7 @@ const AdminPortal = () => {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
+      console.log('data', data);
       const { tickets: newTickets, totalPages } = data;
 
       // Filter out duplicate tickets based on their _id before updating state
