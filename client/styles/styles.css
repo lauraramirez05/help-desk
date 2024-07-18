@@ -421,6 +421,9 @@ form div {
   .filter-container {
     margin-bottom: 15px;
   }
+  .search-container svg {
+    display: none;
+  }
   .search-container {
     padding-left: 0;
   }
