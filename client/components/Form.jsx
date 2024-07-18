@@ -32,7 +32,7 @@ const Form = () => {
 
     try {
       const response = await fetch(
-        'help-desk-backend5.vercel.app/api/submit-form',
+        'help-desk-api-one.vercel.app/api/submit-form',
         {
           method: 'POST',
           headers: {
