@@ -418,6 +418,12 @@ form div {
 
 /* Extra Small Devices (Phones, < 576px) */
 @media (max-width: 420px) {
+  .filter-container {
+    margin-bottom: 15px;
+  }
+  .search-container {
+    padding-left: 0;
+  }
   .search-container input {
     font-size: 0.8725;
   }
