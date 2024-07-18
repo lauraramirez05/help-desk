@@ -25,9 +25,6 @@ const AdminPortal = () => {
         {
           method: 'GET',
           // mode: 'no-cors',
-          headers: {
-            Authorization: `Bearer waEqmPtuanfZcCKgKnFZ6GTU`,
-          },
         }
       );
       console.log('after fetch', response.json());
@@ -65,7 +62,7 @@ const AdminPortal = () => {
   const updateTicketStatus = async (id, newStatus) => {
     try {
       const response = await fetch(
-        `help-desk-backend5-3ozdpz2sf-lauraramirez05s-projects.vercel.app/api/update-status/${id}`,
+        `help-desk-backend5.vercel.app/api/update-status/${id}`,
         {
           method: 'PATCH',
           headers: {
@@ -99,7 +96,7 @@ const AdminPortal = () => {
       if (results.length === 0) {
         try {
           const response = await fetch(
-            `help-desk-backend5-3ozdpz2sf-lauraramirez05s-projects.vercel.app/api/search-ticket/${query}`
+            `help-desk-backend5.vercel.app/api/search-ticket/${query}`
           );
 
           if (!response.ok) {
@@ -117,8 +114,7 @@ const AdminPortal = () => {
 
   //Fetch to Filter Ticket
   const filterTickets = async (filters) => {
-    const baseURL =
-      'help-desk-backend5-3ozdpz2sf-lauraramirez05s-projects.vercel.app/api/filter-tickets';
+    const baseURL = 'help-desk-backend5.vercel.app/api/filter-tickets';
 
     const queryParams = new URLSearchParams({
       status: JSON.stringify(filters.status),
@@ -147,7 +143,7 @@ const AdminPortal = () => {
 
     try {
       const response = await fetch(
-        `help-desk-backend5-3ozdpz2sf-lauraramirez05s-projects.vercel.app/api/update-messages/${id}`,
+        `help-desk-backend5.vercel.app/api/update-messages/${id}`,
         {
           method: 'PATCH',
           headers: {
