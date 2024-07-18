@@ -91,8 +91,10 @@ const AdminPortal = () => {
 
   //Fetch Search Ticket
   const searchTicket = async (query) => {
+    console.log('query', query);
     console.log('fetching for tickets');
     if (query) {
+      console.log('inside of query');
       //Look in the current list
       const results = tickets.filter((ticket) => ticket._id.includes(query));
       //Fetch to the server

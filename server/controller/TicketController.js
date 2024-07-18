@@ -94,8 +94,8 @@ const TicketController = {
       const ticket = await db.findOne({
         _id: query,
       });
-      console.log(ticket);
       res.locals.matchingTicket = ticket;
+      console.log(res.locals.matchingTicket);
       next();
     } catch (error) {
       console.error('Error searching tickets:', error);
