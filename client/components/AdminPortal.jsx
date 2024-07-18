@@ -22,7 +22,7 @@ const AdminPortal = () => {
     try {
       const response = await fetch(`https://help-desk-api-one.vercel.app/api/get-tickets?page=${page}&limit=${7}`, {
         method: 'GET',
-        // mode: 'no-cors',
+        mode: 'no-cors',
       });
       if (!response.ok) {
         throw new Error('Network response was not ok');
