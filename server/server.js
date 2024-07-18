@@ -12,9 +12,7 @@ const port = 3000;
 
 app.use(
   cors({
-    origin: [
-      'https://help-desk-backend5-ivmro2thw-lauraramirez05s-projects.vercel.app/',
-    ],
+    origin: ['https://help-desk-frontend-three.vercel.app'],
     methods: ['POST', 'GET', 'PATCH'],
     credentials: true,
   })
