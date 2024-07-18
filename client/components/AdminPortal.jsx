@@ -91,6 +91,7 @@ const AdminPortal = () => {
 
   //Fetch Search Ticket
   const searchTicket = async (query) => {
+    console.log('fetching for tickets');
     if (query) {
       //Look in the current list
       const results = tickets.filter((ticket) => ticket._id.includes(query));
@@ -106,6 +107,7 @@ const AdminPortal = () => {
           }
 
           const data = await response.json();
+          console.log(data);
           setTickets([data]);
         } catch (error) {
           console.error('Error looking for ticket:', error);
