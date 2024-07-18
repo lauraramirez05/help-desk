@@ -27,6 +27,10 @@ mongoose
 // Use Routes
 app.use('/api', ticketRouter);
 
+app.get('/', (req, res) => {
+  res.send('Welcome to the Help Desk API');
+});
+
 //404 Handler
 app.all('*', (req, res, next) => {
   const err = new Error(`Can't find ${req.originalUrl} on the server!`);
