@@ -21,9 +21,8 @@ const AdminPortal = () => {
   const fetchTickets = async (page) => {
     console.log('fetching tickets');
     try {
-      const response = await fetch(
-        `help-desk-server-cyan.vercel.app/api/get-tickets?page=${page}&limit=${7}`
-      );
+      const response = await fetch(`help-desk-server-cyan.vercel.app
+      /api/get-tickets?page=${page}&limit=${7}`);
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -56,16 +55,13 @@ const AdminPortal = () => {
   //Fetch request to update status
   const updateTicketStatus = async (id, newStatus) => {
     try {
-      const response = await fetch(
-        `help-desk-server-cyan.vercel.app/api/update-status/${id}`,
-        {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ status: newStatus }),
-        }
-      );
+      const response = await fetch(`/api/update-status/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ status: newStatus }),
+      });
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -90,8 +86,7 @@ const AdminPortal = () => {
       //Fetch to the server
       if (results.length === 0) {
         try {
-          const response = await fetch(`help-desk-server-cyan.vercel.app
-          /api/search-ticket/${query}`);
+          const response = await fetch(`/api/search-ticket/${query}`);
 
           if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -108,7 +103,7 @@ const AdminPortal = () => {
 
   //Fetch to Filter Ticket
   const filterTickets = async (filters) => {
-    const baseURL = 'help-desk-server-cyan.vercel.app/api/filter-tickets';
+    const baseURL = '/api/filter-tickets';
 
     const queryParams = new URLSearchParams({
       status: JSON.stringify(filters.status),
@@ -136,7 +131,7 @@ const AdminPortal = () => {
     console.log('Inside the fetch call to update message');
 
     try {
-      const response = await fetch(`help-desk-server-cyan.vercel.app/api/update-messages/${id}`, {
+      const response = await fetch(`/api/update-messages/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-type': 'application/json',

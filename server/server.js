@@ -21,8 +21,8 @@ mongoose
   .then(() => console.log('MongoDB connected'))
   .catch((err) => console.error('MongoDB connection error:', err));
 
-// Serve static files (built React app)
-app.use(express.static(path.join(__dirname, '../client', '../build')));
+// // Serve static files (built React app)
+// app.use(express.static(path.join(__dirname, '../client', '../build')));
 
 // Use Routes
 app.use('/api', ticketRouter);
