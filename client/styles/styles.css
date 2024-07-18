@@ -576,6 +576,7 @@ form div {
   /* TICKET DESIGN*/
   .ticket-container {
     gap: 10px;
+    grid-template-columns: 15% 20% 15% 35% 10%;
   }
   .ticket-id {
     font-size: 12px;
@@ -602,13 +603,13 @@ form div {
   }
 
   .ticket-created {
-    grid-column: 6 / 7;
+    grid-column: 5 / 6;
     grid-row: 1 /2;
     align-self: center;
   }
 
   .ticket-status {
-    grid-column: 5 / 6;
+    grid-column: 3 / 4;
     grid-row: 1 / 2;
   }
 
