@@ -26,6 +26,9 @@ const AdminPortal = () => {
         {
           method: 'GET',
           mode: 'no-cors',
+          headers: {
+            Authorization: `Bearer waEqmPtuanfZcCKgKnFZ6GTU`,
+          },
         }
       );
       if (!response.ok) {
@@ -142,13 +145,16 @@ const AdminPortal = () => {
     console.log('Inside the fetch call to update message');
 
     try {
-      const response = await fetch(`https://help-desk-backend5-3ozdpz2sf-lauraramirez05s-projects.vercel.app/api/update-messages/${id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-type': 'application/json',
-        },
-        body: JSON.stringify({ messages: newMessage }),
-      });
+      const response = await fetch(
+        `https://help-desk-backend5-3ozdpz2sf-lauraramirez05s-projects.vercel.app/api/update-messages/${id}`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({ messages: newMessage }),
+        }
+      );
       if (!response.ok) {
         throw new Error('Network response was not ok');
       } else {
