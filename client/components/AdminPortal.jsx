@@ -16,13 +16,12 @@ const AdminPortal = () => {
   const [messageSubmitted, setMessageSubmitted] = useState(false);
   const initialLoadRef = useRef(true);
 
-  console.log('TICKETS', tickets);
   //Fetch Tickets
   const fetchTickets = async (page) => {
     console.log('fetching tickets');
     try {
       const response = await fetch(
-        `help-desk-backend5-3ozdpz2sf-lauraramirez05s-projects.vercel.app/api/get-tickets?page=${page}&limit=${7}`,
+        `help-desk-backend5.vercel.app/api/get-tickets?page=${page}&limit=${7}`,
         {
           method: 'GET',
           mode: 'no-cors',
