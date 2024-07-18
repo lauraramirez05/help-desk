@@ -24,7 +24,7 @@ const AdminPortal = () => {
         `https://help-desk-n98w.vercel.app/api/get-tickets?page=${page}&limit=${7}`,
         {
           method: 'GET',
-          mode: 'no-cors',
+          // mode: 'no-cors',
         }
       );
       if (!response.ok) {
