@@ -22,7 +22,7 @@ const AdminPortal = () => {
     console.log('fetching tickets');
     try {
       const response = await fetch(
-        `https://help-desk-backend5-3ozdpz2sf-lauraramirez05s-projects.vercel.app/api/get-tickets?page=${page}&limit=${7}`,
+        `help-desk-backend5-3ozdpz2sf-lauraramirez05s-projects.vercel.app/api/get-tickets?page=${page}&limit=${7}`,
         {
           method: 'GET',
           mode: 'no-cors',
