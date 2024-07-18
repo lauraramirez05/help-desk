@@ -3,6 +3,8 @@ const db = require('../models/TicketModel');
 
 const TicketController = {
   async createTicket(req, res, next) {
+    console.log('creating new ticket middleware');
+    console.log(req.body);
     const { name, email, description } = req.body;
 
     // Log the input data
@@ -54,6 +56,7 @@ const TicketController = {
         page,
         totalPages: Math.ceil(total / limit),
       };
+
       next();
     } catch (error) {
       console.error('Error creating ticket:', error);

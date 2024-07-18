@@ -20,10 +20,13 @@ const AdminPortal = () => {
   const fetchTickets = async (page) => {
     console.log('fetching tickets');
     try {
-      const response = await fetch(`https://help-desk-api-one.vercel.app/api/get-tickets?page=${page}&limit=${7}`, {
-        method: 'GET',
-        mode: 'no-cors',
-      });
+      const response = await fetch(
+        `help-desk-n98w.vercel.app/api/get-tickets?page=${page}&limit=${7}`,
+        {
+          method: 'GET',
+          mode: 'no-cors',
+        }
+      );
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -59,7 +62,7 @@ const AdminPortal = () => {
   const updateTicketStatus = async (id, newStatus) => {
     try {
       const response = await fetch(
-        `help-desk-api-one.vercel.app/api/update-status/${id}`,
+        `help-desk-n98w.vercel.app/api/update-status/${id}`,
         {
           method: 'PATCH',
           headers: {
@@ -95,7 +98,7 @@ const AdminPortal = () => {
       if (results.length === 0) {
         try {
           const response = await fetch(
-            `help-desk-api-one.vercel.app/api/search-ticket/${query}`
+            `help-desk-n98w.vercel.app/api/search-ticket/${query}`
           );
 
           if (!response.ok) {
@@ -113,7 +116,7 @@ const AdminPortal = () => {
 
   //Fetch to Filter Ticket
   const filterTickets = async (filters) => {
-    const baseURL = 'help-desk-api-one.vercel.app/api/filter-tickets';
+    const baseURL = 'help-desk-n98w.vercel.appp/api/filter-tickets';
 
     const queryParams = new URLSearchParams({
       status: JSON.stringify(filters.status),
@@ -142,7 +145,7 @@ const AdminPortal = () => {
 
     try {
       const response = await fetch(
-        `help-desk-api-one.vercel.app/api/update-messages/${id}`,
+        `help-desk-n98w.vercel.app/api/update-messages/${id}`,
         {
           method: 'PATCH',
           headers: {

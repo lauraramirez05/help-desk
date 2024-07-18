@@ -13,7 +13,16 @@ mongoose
   .then(() => console.log('MongoDB connected'))
   .catch((err) => console.error('MongoDB connection error:', err));
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      'https://help-desk-frontend5.vercel.app',
+      'https://help-desk-n98w.vercel.app',
+    ],
+    methods: ['GET', 'POST', 'PATCH'], // Adjust methods as needed
+    credentials: true, // If your frontend sends credentials (cookies, headers)
+  })
+);
 app.use(express.json());
 
 app.use('/api', ticketRouter);
@@ -40,6 +49,7 @@ app.use((error, req, res, next) => {
     message: error.message,
   });
 });
+
 app.listen(3000, () => console.log('Server ready on port 3000.'));
 
 module.exports = app;

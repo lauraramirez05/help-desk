@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const shortid = require('shortid');
 
 const ticketSchema = new mongoose.Schema({
-  uniqueId: {
+  _id: {
     type: String,
     unique: true,
   },
