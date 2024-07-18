@@ -14,7 +14,7 @@ app.use(
   cors({
     origin: [
       'https://help-desk-frontend-three.vercel.app',
-      'https://help-desk-backend5.vercel.app/',
+      'https://help-desk-backend5.vercel.app',
     ],
     methods: ['POST', 'GET', 'PATCH'],
     credentials: true,
