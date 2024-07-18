@@ -20,18 +20,15 @@ const AdminPortal = () => {
   const fetchTickets = async (page) => {
     console.log('fetching tickets');
     try {
-      const response = await fetch(
-        `https://help-desk-api-one.vercel.app/api/get-tickets?page=${page}&limit=${7}`,
-        {
-          method: 'GET',
-          mode: 'no-cors',
-        }
-      );
-      console.log('after fetch', response.json());
+      const response = await fetch(`api/get-tickets?page=${page}&limit=${7}`, {
+        method: 'GET',
+        // mode: 'no-cors',
+      });
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
+      console.log(data);
 
       const { tickets: newTickets, totalPages } = data;
 

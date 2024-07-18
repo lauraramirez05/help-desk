@@ -23,8 +23,7 @@ module.exports = (env, argv) => {
       proxy: [
         {
           context: ['/api'], // requests starting with /api
-          target:
-            'https://help-desk-backend5-3ozdpz2sf-lauraramirez05s-projects.vercel.app/', // proxy to this backend server
+          target: 'http://localhost:3000', // proxy to this backend server
         },
       ],
     },
