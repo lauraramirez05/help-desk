@@ -166,7 +166,9 @@ const AdminPortal = () => {
     <div className='admin-page'>
       <div className='header'>
         <Button className='house-btn'>
-          <FontAwesomeIcon icon={faHouse} />
+          <Link to='/'>
+            <FontAwesomeIcon icon={faHouse} />
+          </Link>
         </Button>
         <div className='filter-container'>
           <SearchTicket onSearch={searchTicket} />
