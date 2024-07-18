@@ -21,7 +21,7 @@ const AdminPortal = () => {
     console.log('fetching tickets');
     try {
       const response = await fetch(
-        `help-desk-api-one.vercel.app/api/get-tickets?page=${page}&limit=${7}`,
+        `https://help-desk-api-one.vercel.app/api/get-tickets?page=${page}&limit=${7}`,
         {
           method: 'GET',
           // mode: 'no-cors',

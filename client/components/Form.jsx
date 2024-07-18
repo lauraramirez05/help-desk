@@ -32,9 +32,10 @@ const Form = () => {
 
     try {
       const response = await fetch(
-        'help-desk-api-one.vercel.app/api/submit-form',
+        'https://help-desk-api-one.vercel.app/api/submit-form',
         {
           method: 'POST',
+          mode: 'no-cors',
           headers: {
             'Content-Type': 'application/json',
           },
