@@ -13,22 +13,27 @@ mongoose
   .then(() => console.log('MongoDB connected'))
   .catch((err) => console.error('MongoDB connection error:', err));
 
+// Use CORS middleware
 app.use(
   cors({
     origin: [
       'https://help-desk-frontend5.vercel.app',
       'https://help-desk-n98w.vercel.app',
     ],
-    methods: ['GET', 'POST', 'PATCH'], // Adjust methods as needed
-    credentials: true, // If your frontend sends credentials (cookies, headers)
+    methods: ['GET', 'POST', 'PATCH'],
+    credentials: true,
   })
 );
+
+// Handle preflight requests
+app.options('*', cors());
+
 app.use(express.json());
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  next();
-});
+// app.use((req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', '*');
+//   next();
+// });
 
 app.use('/api', ticketRouter);
 
