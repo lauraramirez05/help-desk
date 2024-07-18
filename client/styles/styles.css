@@ -417,6 +417,12 @@ form div {
 }
 
 /* Extra Small Devices (Phones, < 576px) */
+@media (max-width: 420px) {
+  .search-container input {
+    font-size: 0.8725;
+  }
+}
+
 @media (max-width: 575.98px) {
   .main-page,
   .admin-page {
