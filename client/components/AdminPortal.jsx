@@ -74,7 +74,9 @@ const AdminPortal = () => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
+      console.log(response);
       const updatedTicket = await response.json();
+      console.log(updatedTicket);
       setTickets((prevTickets) =>
         prevTickets.map((ticket) =>
           ticket._id === id
