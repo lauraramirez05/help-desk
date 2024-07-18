@@ -1,8 +1,22 @@
 {
   "version": 2,
-  "buildCommand": "npm run build",
   "builds": [
-    { "src": "*.js", "use": "@vercel/node" }
+    {
+      "src": "server.js",
+      "use": "@vercel/node"
+    }
   ],
-  "rewrites": [{ "source": "/(.*)", "destination": "/api" }]
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "server.js"
+    },
+    {
+      "src": "/",
+      "dest": "server.js"
+    }
+  ],
+  "env": {
+    "DB_URL": "mongodb+srv://lauraramirez0507:Yl3Tk8MJRevJFkh7@cluster0.qhal33c.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+  }
 }
