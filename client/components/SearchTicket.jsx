@@ -11,6 +11,7 @@ const SearchTicket = ({ onSearch }) => {
 
   console.log(query);
   const handleClick = (e) => {
+    console.log('hitting handleclick')
     if (e.key === 'Enter') {
       console.log('we pressed enter');
       e.preventDefault();
