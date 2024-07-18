@@ -24,17 +24,18 @@ const AdminPortal = () => {
         `help-desk-backend5.vercel.app/api/get-tickets?page=${page}&limit=${7}`,
         {
           method: 'GET',
-          mode: 'no-cors',
+          // mode: 'no-cors',
           headers: {
             Authorization: `Bearer waEqmPtuanfZcCKgKnFZ6GTU`,
           },
         }
       );
+      console.log('after fetch', response.json());
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
-      console.log('data', data);
+
       const { tickets: newTickets, totalPages } = data;
 
       // Filter out duplicate tickets based on their _id before updating state
