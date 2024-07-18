@@ -21,8 +21,7 @@ const AdminPortal = () => {
   const fetchTickets = async (page) => {
     console.log('fetching tickets');
     try {
-      const response = await fetch(`help-desk-server-cyan.vercel.app
-      /api/get-tickets?page=${page}&limit=${7}`);
+      const response = await fetch(`https://help-desk-backend5-3ozdpz2sf-lauraramirez05s-projects.vercel.app/api/get-tickets?page=${page}&limit=${7}`);
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
