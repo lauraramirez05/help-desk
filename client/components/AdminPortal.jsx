@@ -24,7 +24,7 @@ const AdminPortal = () => {
         `https://help-desk-api-one.vercel.app/api/get-tickets?page=${page}&limit=${7}`,
         {
           method: 'GET',
-          // mode: 'no-cors',
+          mode: 'no-cors',
         }
       );
       console.log('after fetch', response.json());
