@@ -18,9 +18,10 @@ const AdminPortal = () => {
 
   //Fetch Tickets
   const fetchTickets = async (page) => {
-    console.log('fetching tickets');
+    console.log('fetching tickets', page);
     try {
       const response = await fetch(
+        // `/api/get-tickets?page=${page}&limit=7`,
         `https://help-desk-n98w.vercel.app/api/get-tickets?page=${page}&limit=${7}`,
         {
           method: 'GET',
@@ -54,9 +55,12 @@ const AdminPortal = () => {
   const fetchMoreTickets = () => {
     console.log('fetching more tickets');
     const nextPage = page + 1;
-    fetchTickets(nextPage);
     setPage(nextPage);
+    console.log(page);
+    fetchTickets(nextPage);
   };
+
+  console.log(page);
 
   //Fetch request to update status
   const updateTicketStatus = async (id, newStatus) => {
@@ -172,13 +176,13 @@ const AdminPortal = () => {
     }
   };
 
-  console.log(tickets);
   const handleClick = () => {
     setOpenModal(true);
   };
 
   useEffect(() => {
     if (initialLoadRef.current) {
+      console.log('inside if in useEffect');
       fetchTickets(1); // Fetch only if tickets are not yet fetched
       initialLoadRef.current = false; // Update initialLoadRef after initial fetch
     }
