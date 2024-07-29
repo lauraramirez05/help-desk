@@ -164,6 +164,10 @@ form div {
   outline: none;
 }
 
+.search-container .close-btn {
+  font-size: 0.7rem;
+}
+
 /*TICKET CONTAINER UI*/
 
 .ticket-feed {

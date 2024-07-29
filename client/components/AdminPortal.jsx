@@ -14,6 +14,7 @@ const AdminPortal = () => {
   const [hasMore, setHasMore] = useState(true);
   const [openModal, setOpenModal] = useState(false);
   const [messageSubmitted, setMessageSubmitted] = useState(false);
+  const [searchSuccessful, setSearchSuccessful] = useState(true);
   const initialLoadRef = useRef(true);
 
   //Fetch Tickets
@@ -53,10 +54,8 @@ const AdminPortal = () => {
   };
 
   const fetchMoreTickets = () => {
-    console.log('fetching more tickets');
     const nextPage = page + 1;
     setPage(nextPage);
-    console.log(page);
     fetchTickets(nextPage);
   };
 
@@ -95,17 +94,27 @@ const AdminPortal = () => {
 
   //Fetch Search Ticket
   const searchTicket = async (query) => {
-    console.log('query', query);
-    console.log('fetching for tickets');
     if (query) {
-      console.log('inside of query');
-      //Look in the current list
-      const results = tickets.filter((ticket) => ticket._id.includes(query));
-      setTickets([results]);
-      //Fetch to the server
+      let results = [];
+
+      // Look in the current list
+      if (tickets.length > 0) {
+        console.log('inside of tickets.length');
+        results = tickets.filter((ticket) => ticket._id.includes(query));
+
+        console.log(results);
+
+        // If tickets are found locally, update the state and return
+        if (results.length > 0) {
+          return setTickets(results);
+        }
+      }
+
       if (results.length === 0) {
+        console.log('fetchingd database');
         try {
           const response = await fetch(
+            // `/api/search-ticket/${query}`
             `https://help-desk-n98w.vercel.app/api/search-ticket/${query}`
           );
 
@@ -115,11 +124,19 @@ const AdminPortal = () => {
 
           const data = await response.json();
           console.log(data);
-          setTickets([data]);
+          if (data) {
+            setSearchSuccessful(true);
+            setTickets([data]);
+          } else {
+            console.log('hereee');
+            setSearchSuccessful(false);
+            setTickets([]);
+          }
         } catch (error) {
           console.error('Error looking for ticket:', error);
         }
       }
+      // Fetch from the server if no local results
     }
   };
 
@@ -197,7 +214,12 @@ const AdminPortal = () => {
           </Link>
         </Button>
         <div className='filter-container'>
-          <SearchTicket onSearch={searchTicket} />
+          <SearchTicket
+            onSearch={searchTicket}
+            onFetch={fetchTickets}
+            setPage={setPage}
+            setSearchSuccessful={setSearchSuccessful}
+          />
           <Button onClick={handleClick}>Filter</Button>
         </div>
       </div>
@@ -227,6 +249,8 @@ const AdminPortal = () => {
               setMessageSubmitted={setMessageSubmitted}
             />
           ))}
+
+          {!searchSuccessful && <p>The ticket doesn't exist</p>}
 
           <Button className='load-btn' onClick={fetchMoreTickets}>
             Load More
