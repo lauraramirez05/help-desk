@@ -62,7 +62,7 @@ const FilterModal = ({ open, onClose, onFilter }) => {
   };
 
   return (
-    <Modal open={open}>
+    <Modal open={open} onClose={handleClose}>
       <Box sx={modalStyle}>
         <Box sx={contentStyle}>
           <div className='modal-header'>
@@ -178,7 +178,7 @@ const FilterModal = ({ open, onClose, onFilter }) => {
               <input
                 type='date'
                 id='endDate'
-                value='endDate'
+                value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
               />
             </div>

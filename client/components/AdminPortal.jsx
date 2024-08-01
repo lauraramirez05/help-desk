@@ -94,7 +94,7 @@ const AdminPortal = () => {
     }
   };
 
- //Fetch Search Ticket
+  //Fetch Search Ticket
   const searchTicket = async (query) => {
     if (query) {
       let results = [];
@@ -143,14 +143,29 @@ const AdminPortal = () => {
   };
   //Fetch to Filter Ticket
   const filterTickets = async (filters) => {
-    const baseURL = 'https://help-desk-n98w.vercel.app/api/filter-tickets';
+    console.log(filters);
+    const baseURL = '/api/filter-tickets';
+    // const baseURL = 'https://help-desk-n98w.vercel.app/api/filter-tickets';
 
+    // Check and log filters object
+    console.log('Filters:', filters);
+
+    // Construct query parameters
     const queryParams = new URLSearchParams({
-      status: JSON.stringify(filters.status),
-      orderBy: filters.orderBy,
-      startDate: filters.StartDate,
-      endDate: filters.endDate,
+      // Convert status object to JSON string if it's not empty
+      status:
+        Object.keys(filters.status).length > 0
+          ? JSON.stringify(filters.status)
+          : '',
+
+      // Ensure orderBy, startDate, and endDate have default values
+      orderBy: filters.orderBy || '',
+      startDate: filters.startDate || '',
+      endDate: filters.endDate || '',
     });
+
+    // Log the constructed query parameters string
+    console.log('Query Parameters String:', queryParams.toString());
 
     const urlWithParams = `${baseURL}?${queryParams.toString()}`;
     try {
