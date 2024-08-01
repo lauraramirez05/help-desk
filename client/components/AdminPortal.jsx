@@ -54,10 +54,11 @@ const AdminPortal = () => {
 
   const fetchMoreTickets = () => {
     console.log('fetching more tickets');
-    const nextPage = page + 1;
-    setPage(nextPage);
-    console.log(page);
-    fetchTickets(nextPage);
+    setPage((prevPage) => {
+      const nextPage = prevPage + 1;
+      fetchTickets(nextPage);
+      return nextPage;
+    });
   };
 
   console.log(page);
