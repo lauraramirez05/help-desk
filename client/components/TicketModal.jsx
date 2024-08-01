@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, Box, Backdrop, Paper } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -62,14 +62,22 @@ const TicketModal = ({
     onUpdateMessages(_id, newMessage);
     // setNewMessage('');
   };
-  console.log(messageSubmitted);
-  setTimeout(() => {
-    setMessageSubmitted(false);
-    setNewMessage('');
-  }, 15000);
+
+  // Added useEffect to reset messageSubmitted and newMessage
+  useEffect(() => {
+    if (messageSubmitted) {
+      const timer = setTimeout(() => {
+        setMessageSubmitted(false);
+        setNewMessage('');
+      }, 15000);
+
+      // Cleanup timeout on component unmount
+      return () => clearTimeout(timer);
+    }
+  }, [messageSubmitted, setMessageSubmitted]);
 
   return (
-    <Modal open={open} close={onClose}>
+    <Modal open={open} onClose={onClose}>
       <Box sx={modalStyle}>
         <Box sx={contentStyle}>
           <div className='ticket-modal modal-header'>

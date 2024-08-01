@@ -9,7 +9,13 @@ import { formatDateTime } from '../utils/dateUtils';
 import TicketModal from './TicketModal';
 import { Paper } from '@mui/material';
 
-const Ticket = ({ info, onUpdateStatus, onUpdateMessages, messageSubmitted, setMessageSubmitted }) => {
+const Ticket = ({
+  info,
+  onUpdateStatus,
+  onUpdateMessages,
+  messageSubmitted,
+  setMessageSubmitted,
+}) => {
   const { _id, name, email, description, createdAt, status } = info;
   const [currentStatus, setCurrentStatus] = useState(status);
   const [openModal, setOpenModal] = useState(false);
@@ -27,16 +33,14 @@ const Ticket = ({ info, onUpdateStatus, onUpdateMessages, messageSubmitted, setM
   };
 
   const handleClick = (e) => {
-    // Check if the clicked element is the select element or its child
-    if (
-      e.target.id === 'status-select' ||
-      e.target.parentElement.id === 'status-select'
-    ) {
-      return; // Do nothing if clicking on the select or its options
+    // Open the modal for parts of the ticket container excluding ticket-id
+    if (!e.target.closest('.ticket-id')) {
+      setOpenModal(true);
     }
+  };
 
-    // Open the modal for other parts of the ticket container
-    setOpenModal(true);
+  const handleClickTicketId = (e) => {
+    e.stopPropagation(); // Stop the event from propagating to parent elements
   };
 
   const handleCloseModal = () => {
@@ -46,7 +50,7 @@ const Ticket = ({ info, onUpdateStatus, onUpdateMessages, messageSubmitted, setM
   return (
     <div>
       <Paper elevation={3} className='ticket-container' onClick={handleClick}>
-        <div className='ticket-id'>
+        <div className='ticket-id' onClick={handleClickTicketId}>
           <div className='value'>{_id}</div>
         </div>
         <div className='info ticket-name'>
