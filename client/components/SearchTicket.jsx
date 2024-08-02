@@ -10,10 +10,7 @@ const SearchTicket = ({ onSearch, onFetch, setPage, setSearchSuccessful }) => {
   };
 
   const handleClick = (e) => {
-    console.log('hitting handleclick');
-    console.log('query');
     if (e.key === 'Enter') {
-      console.log('we pressed enter');
       e.preventDefault();
 
       if (query === '') {

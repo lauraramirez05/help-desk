@@ -60,7 +60,6 @@ const TicketModal = ({
   const handleClick = () => {
     postStatus(_id, currentStatus);
     onUpdateMessages(_id, newMessage);
-    // setNewMessage('');
   };
 
   // Added useEffect to reset messageSubmitted and newMessage

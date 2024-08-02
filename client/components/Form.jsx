@@ -28,7 +28,6 @@ const Form = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
 
     try {
       const response = await fetch(
@@ -48,8 +47,6 @@ const Form = () => {
       const result = await response.json();
       setCurrentId(result);
       setSubmissionStatus('success');
-      // Handle success (e.g., show a success message, reset form, etc.)
-      console.log('Form submitted successfully:', result);
     } catch (error) {
       setSubmissionStatus('error');
       console.error('Form submission error:', error);

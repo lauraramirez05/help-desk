@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 const FilterModal = ({ open, onClose, onFilter }) => {
-  // const [open, setOpen] = useState(true);
   const [statusFilters, setStatusFilters] = useState({
     new: false,
     inProgress: false,

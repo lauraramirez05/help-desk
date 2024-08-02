@@ -3,8 +3,6 @@ const db = require('../models/TicketModel');
 
 const TicketController = {
   async createTicket(req, res, next) {
-    console.log('creating new ticket middleware');
-    console.log(req.body);
     const { name, email, description } = req.body;
 
     // Log the input data
@@ -49,7 +47,6 @@ const TicketController = {
 
       const total = await db.countDocuments();
 
-      console.log('tickets info from backend:', tickets);
       res.locals.tickets = {
         tickets,
         total,
@@ -78,7 +75,6 @@ const TicketController = {
       if (!updatedTicket) {
         return res.status(404).json({ message: 'Ticket not found' });
       }
-      console.log('updated ticket', updatedTicket);
       res.locals.updatedTicket = updatedTicket;
       next();
     } catch (error) {
@@ -87,15 +83,12 @@ const TicketController = {
   },
 
   async searchTicket(req, res, next) {
-    console.log('searchTicket controller');
     const query = req.params.query;
-    console.log('Query', query);
     try {
       const ticket = await db.findOne({
         _id: query,
       });
       res.locals.matchingTicket = ticket;
-      console.log(res.locals.matchingTicket);
       next();
     } catch (error) {
       console.error('Error searching tickets:', error);
@@ -106,10 +99,10 @@ const TicketController = {
   async filterTickets(req, res, next) {
     const { status, orderBy, startDate, endDate } = req.query;
 
-    //Parse the status filter, to make it into an object
+    // Parse the status filter to make it into an object
     const statusFilters = JSON.parse(status);
 
-    //Quer for MongoDB
+    // Query for MongoDB
     const query = {
       $or: [],
     };
@@ -118,7 +111,7 @@ const TicketController = {
     if (statusFilters.inProgress) query.$or.push({ status: 'In Progress' });
     if (statusFilters.done) query.$or.push({ status: 'Done' });
 
-    //Date Filters
+    // Date Filters
     if (startDate && startDate !== 'undefined') {
       if (!query.createdAt) query.createdAt = {};
       query.createdAt.$gte = new Date(startDate);
@@ -128,17 +121,19 @@ const TicketController = {
       query.createdAt.$lte = new Date(endDate);
     }
 
-    //Order By
+    // If $or array is empty, remove it from the query
+    if (query.$or.length === 0) {
+      delete query.$or;
+    }
+
+    // Order By
     let sort = {};
     if (orderBy === 'New to Old') sort = { createdAt: -1 };
     else if (orderBy === 'Old to New') sort = { createdAt: 1 };
 
     try {
-      console.log('before querying to database');
       const filteredTickets = await db.find(query).sort(sort).limit(5);
-      console.log(filteredTickets);
       res.locals.filteredTickets = filteredTickets;
-      console.log(res.locals.filteredTickets);
       return next();
     } catch (error) {
       next(error);
@@ -160,8 +155,6 @@ const TicketController = {
       if (!updatedTicket) {
         return res.status(404).json({ message: `Ticket not found` });
       }
-
-      console.log('updated ticket with messages:', updatedTicket);
 
       next();
     } catch (error) {

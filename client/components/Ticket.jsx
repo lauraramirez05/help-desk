@@ -78,7 +78,7 @@ const Ticket = ({
           </div>
           <div className='value'>{formattedDate}</div>
         </div>
-        <div className='info ticket-status'>
+        <div className='info ticket-status' onClick={handleClickTicketId}>
           <select
             name='status-select-label'
             id='status-select'
